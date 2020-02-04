@@ -10,8 +10,9 @@ http://danthegeek.com/2018/10/30/a2z-machine-running-zork-on-an-adafruit-itsybit
 
 In addition to code from this GitHub library for the A2Z Machine, you will also need the following libraries installed:
 
-- Adafruit SPIFlash Library - https://github.com/adafruit/Adafruit_SPIFlash
-- Adafruit QSPI Library - https://github.com/adafruit/Adafruit_QSPI
+### Note Specific Older Versions of SPIFlash and QSPI are required
+- Adafruit SPIFlash Library - https://github.com/adafruit/Adafruit_SPIFlash/tree/1dd84a3ec31c8541ed6f80eebda7e329c6a31a96
+- Adafruit QSPI Library - https://github.com/adafruit/Adafruit_QSPI/tree/69737dfa0c1147b35f54064c233696752998c94c
 - mcurses Library - https://github.com/ChrisMicro/mcurses
 - TinyUSB Library - (new for version 2) https://github.com/adafruit/Adafruit_TinyUSB_Arduino
 
