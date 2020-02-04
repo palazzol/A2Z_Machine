@@ -114,7 +114,7 @@ extern unsigned char JTERP;
 #define SRANDOM_FUNC srandom
 #endif
 */
-#define RANDOM_FUNC  random
+#define RANDOM_FUNC  random_x
 #define SRANDOM_FUNC randomSeed
 /* Perform stricter z-code error checking. If STRICTZ is #defined,
  * the interpreter will check for common opcode errors, such as reading
