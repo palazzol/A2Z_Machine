@@ -106,14 +106,14 @@ void load_cache( void )
    else
    {
       data_pages = ( h_data_size + PAGE_MASK ) >> PAGE_SHIFT;
-      //Serial.print("h_data_size: ");Serial.print(h_data_size);Serial.print(", PAGE_MASK: ");Serial.println(PAGE_MASK);
+      //Serial1.print("h_data_size: ");Serial1.print(h_data_size);Serial1.print(", PAGE_MASK: ");Serial1.println(PAGE_MASK);
    }
    data_size = data_pages * PAGE_SIZE;
    file_size = ( unsigned long ) h_file_size *story_scaler;
 
    file_pages = ( unsigned int ) ( ( file_size + PAGE_MASK ) >> PAGE_SHIFT );
-   //Serial.print("data pages: ");Serial.print(data_pages);Serial.print(", file pages: ");Serial.println(file_pages);
-   //Serial.print("data size: "); Serial.print(data_size);Serial.print(", file size: "); Serial.println(file_size);
+   //Serial1.print("data pages: ");Serial1.print(data_pages);Serial1.print(", file pages: ");Serial1.println(file_pages);
+   //Serial1.print("data size: "); Serial1.print(data_size);Serial1.print(", file size: "); Serial1.println(file_size);
    /* Allocate static data area and initialise it */
 
    datap = ( zbyte_t * ) malloc( data_size );
@@ -140,7 +140,7 @@ void load_cache( void )
       {
          cachep->flink = cache;
          cachep->page_number = i;
-         //Serial.print("loading cache page ");Serial.print(i);Serial.print(", link: ");Serial.println((uint32_t) cachep->flink,HEX);
+         //Serial1.print("loading cache page ");Serial1.print(i);Serial1.print(", link: ");Serial1.println((uint32_t) cachep->flink,HEX);
          read_page( cachep->page_number, cachep->data );
          cache = cachep;
       }
@@ -212,7 +212,7 @@ zbyte_t read_code_byte( void )
 
    page_number = ( unsigned int ) ( pc >> PAGE_SHIFT );
    page_offset = ( unsigned int ) pc & PAGE_MASK;
-   //Serial.print("read_code_byte(): ");Serial.print("reading page ");Serial.print(page_number);Serial.print(", offset ");Serial.println(page_offset);
+   //Serial1.print("read_code_byte(): ");Serial1.print("reading page ");Serial1.print(page_number);Serial1.print(", offset ");Serial1.println(page_offset);
    /* Load page into translation buffer */
 
    //if ( page_number != current_code_page )
@@ -409,7 +409,7 @@ static unsigned int calc_data_pages( void )
 
 static cache_entry_t *update_cache( int page_number )
 {
-   //Serial.print("update_cache(");Serial.print(page_number); Serial.println(")");
+   //Serial1.print("update_cache(");Serial1.print(page_number); Serial1.println(")");
    cache_entry_t *cachep, *lastp;
 
    /* Search the cache chain for the page */
@@ -418,7 +418,7 @@ static cache_entry_t *update_cache( int page_number )
          cachep->flink != NULL && cachep->page_number && cachep->page_number != page_number;
          lastp = cachep, cachep = cachep->flink )
          {
-          //Serial.print("next page: "); Serial.print(cachep->page_number); Serial.print(", ptr: ");Serial.println((uint32_t) cachep->flink,HEX);
+          //Serial1.print("next page: "); Serial1.print(cachep->page_number); Serial1.print(", ptr: ");Serial1.println((uint32_t) cachep->flink,HEX);
           if((uint32_t) cachep->page_number > 2000)
           {
             fatal("Bad page!");
@@ -444,7 +444,7 @@ static cache_entry_t *update_cache( int page_number )
       }
 
       /* Load the new page number and the page contents from disk */
-      //Serial.print("load new page ");Serial.println(page_number);
+      //Serial1.print("load new page ");Serial1.println(page_number);
       cachep->page_number = page_number;
       read_page( page_number, cachep->data );
    }

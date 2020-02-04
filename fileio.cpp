@@ -211,7 +211,7 @@ void open_story( const char *storyname )
    strcpy( tmp, storyname );  
    if(spiffs.exists(tmp))
   {
-      //Serial.println(String(tmp) + String(" exists"));
+      //Serial1.println(String(tmp) + String(" exists"));
       gfp = spiffs.open( tmp, FILE_READ);                            
 #if defined BUFFER_FILES        
 #ifndef USE_ZLIB
@@ -221,13 +221,13 @@ void open_story( const char *storyname )
       set_names( storyname );   
       return;                   
    }                            
-   Serial.println(String(tmp) + String(" does not exist"));
+   Serial1.println(String(tmp) + String(" does not exist"));
 
 // assume Zcode file is in root folder for Arduino
       sprintf( tmp, "\\%s", storyname );
       if (spiffs.exists(tmp))
       {
-        Serial.println(String(tmp) + String(" exists"));
+        Serial1.println(String(tmp) + String(" exists"));
         gfp = spiffs.open( tmp, FILE_READ);                            
 #if defined BUFFER_FILES        
 #ifndef USE_ZLIB
@@ -238,7 +238,7 @@ void open_story( const char *storyname )
          return;
 
       }
-    Serial.println(String(tmp) + String(" does not exist"));
+    Serial1.println(String(tmp) + String(" does not exist"));
 
    fatal( "open_story(): Zcode file not found" );
 }                               /* open_story */
@@ -291,15 +291,15 @@ unsigned int get_story_size( void )
  */
 void read_page( int page, void *buffer )
 {
-   //Serial.print("in read_page(): "); Serial.print(page); Serial.print(", "); Serial.println((uint32_t) buffer, HEX);
+   //Serial1.print("in read_page(): "); Serial1.print(page); Serial1.print(", "); Serial1.println((uint32_t) buffer, HEX);
    unsigned long file_size;
    unsigned int pages, offset;
 
    /* Seek to start of page */
    int seekcode = gfp.seek(story_offset + ( long ) page * PAGE_SIZE);
-   //Serial.print("Debug read_page() Offset: ");
-   //Serial.println(story_offset + ( long ) page * PAGE_SIZE,HEX);
-   //Serial.print("Debug seek returned "); Serial.println(seekcode);
+   //Serial1.print("Debug read_page() Offset: ");
+   //Serial1.println(story_offset + ( long ) page * PAGE_SIZE,HEX);
+   //Serial1.print("Debug seek returned "); Serial1.println(seekcode);
 
    /* Read the page */
 
@@ -309,7 +309,7 @@ void read_page( int page, void *buffer )
    if ( gfp.read( buffer, PAGE_SIZE) == -1)
 #endif
    {
-      //Serial.println("Debug read_page() 3");
+      //Serial1.println("Debug read_page() 3");
       /* Read failed. Are we in the last page? */
       file_size = ( unsigned long ) h_file_size *story_scaler;
 
@@ -319,11 +319,11 @@ void read_page( int page, void *buffer )
       if ( ( unsigned int ) page == pages )
       {
          /* Read partial page if this is the last page in the game file */
-         //Serial.println("Debug read_page() 4");
+         //Serial1.println("Debug read_page() 4");
          int seekcode = gfp.seek(story_offset + ( long ) page * PAGE_SIZE);
-         //Serial.print("Debug seek() returned "); Serial.println(seekcode);
+         //Serial1.print("Debug seek() returned "); Serial1.println(seekcode);
 
-         //Serial.println("Debug read_page() 5");
+         //Serial1.println("Debug read_page() 5");
 #ifdef USE_ZLIB
          if ( gzread( gfp, buffer, offset ) == -1 )
 #else
@@ -334,20 +334,20 @@ void read_page( int page, void *buffer )
          }
       }
    }
-   //Serial.println("done read_page()");
+   //Serial1.println("done read_page()");
 }                               /* read_page */
 
 void read_page_old( int page, void *buffer )
 {
-   //Serial.print("read_page(");Serial.print(page);Serial.println(")");
+   //Serial1.print("read_page(");Serial1.print(page);Serial1.println(")");
    unsigned long file_size;
    unsigned int pages, offset;
 
    /* Seek to start of page */
    int seekcode = gfp.seek(story_offset + ( long ) page * PAGE_SIZE);
-   // Serial.print("Debug read_page() Offset: ");
-   // Serial.println(story_offset + ( long ) page * PAGE_SIZE,HEX);
-   // Serial.print("Debug seek returned "); Serial.println(seekcode);
+   // Serial1.print("Debug read_page() Offset: ");
+   // Serial1.println(story_offset + ( long ) page * PAGE_SIZE,HEX);
+   // Serial1.print("Debug seek returned "); Serial1.println(seekcode);
 
    /* Read the page */
 
@@ -367,8 +367,8 @@ void read_page_old( int page, void *buffer )
       {
          /* Read partial page if this is the last page in the game file */
          int seekcode = gfp.seek( story_offset + ( long ) page * PAGE_SIZE);
-         //Serial.print("Debug seek() returned "); Serial.println(seekcode);
-         //Serial.println(offset);
+         //Serial1.print("Debug seek() returned "); Serial1.println(seekcode);
+         //Serial1.println(offset);
 #ifdef USE_ZLIB
          if ( gzread( gfp, buffer, offset ) == -1 )
 #else
@@ -379,7 +379,7 @@ void read_page_old( int page, void *buffer )
          }
       }
    }
-   //Serial.println("done read_page()");
+   //Serial1.println("done read_page()");
 }                               /* read_page */
 
 /*

@@ -201,17 +201,17 @@ static bool showA2ZScreen(int &storynum)
    }
     paddedname[14] = '\0';
     strcpy(filenames[count], paddedname);
-    //Serial.println(filenames[count]);
+    //Serial1.println(filenames[count]);
     count++;
   }
   displayA2ZScreen(filenames, count, storynum);
 
   if(count == 0)
   {
-    Serial.print("No stories found [press any key to try again]");
-    while (!Serial.available()){yield();};
-    Serial.read();
-    Serial.println();
+    Serial1.print("No stories found [press any key to try again]");
+    while (!Serial1.available()){yield();};
+    Serial1.read();
+    Serial1.println();
     return false;
   }
   while(1)
@@ -228,8 +228,8 @@ static bool showA2ZScreen(int &storynum)
     {
       escape1 = Arduino_getchar();
       escape2 = Arduino_getchar();
-      //Serial.print("got ");Serial.println(escape1,HEX);
-      //Serial.print("got ");Serial.println(escape2,HEX);
+      //Serial1.print("got ");Serial1.println(escape1,HEX);
+      //Serial1.print("got ");Serial1.println(escape2,HEX);
       if(escape1 == '[')
       {
         switch(escape2)
@@ -255,7 +255,7 @@ static bool showA2ZScreen(int &storynum)
       }
     }
     move(7+(count/5),1);
-    //Serial.print(" got ");Serial.println(keystroke,HEX);
+    //Serial1.print(" got ");Serial1.println(keystroke,HEX);
     yield();
     switch(keystroke)
     {
@@ -581,8 +581,8 @@ void setup()
   
   usb_msc.begin();
 
-  Serial.begin(9600);
-  while (!Serial) {
+  Serial1.begin(9600);
+  while (!Serial1) {
   }  
  
   if (!spiffs.begin()) {
@@ -602,7 +602,7 @@ void loop()
 
   sprintf(storyfile,"%s/%s",GAMEPATH, storyfilelist[storynum]);
 
-  Serial.println("Opening story...");
+  Serial1.println("Opening story...");
   delay(500);
   open_story(storyfile);
   configure((zbyte_t) V1, (zbyte_t) V8 );

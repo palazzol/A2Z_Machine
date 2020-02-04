@@ -74,31 +74,31 @@ static int read_char( int timeout );
 
 void Arduino_putchar(uint8_t c)
 {
-  Serial.write(c);
+  Serial1.write(c);
 }
 
 char Arduino_getchar()
 {
-  while (!Serial.available()){yield();};
-  return Serial.read();
+  while (!Serial1.available()){yield();};
+  return Serial1.read();
 }
 
 static int inc( uint32_t timeout = 0 )
 {
    uint32_t timer = millis();
-   while(!Serial.available() && ((timeout == 0) || (timeout > 0 && (timer + timeout*100 > millis())))){yield();};
+   while(!Serial1.available() && ((timeout == 0) || (timeout > 0 && (timer + timeout*100 > millis())))){yield();};
    if(timeout > 0 && ((timer + timeout*100) <= millis()))
     return -1;
 
-   int c = Serial.read();
+   int c = Serial1.read();
    if ( c == -1 )
    {
-      fatal("acursesio inc: error in Serial.read!");
+      fatal("acursesio inc: error in Serial1.read!");
    }
    if((int) c != 127) // is this a backspace key? will print it later
-    Serial.write(c);
+    Serial1.write(c);
    if(c == '\r')
-     Serial.write('\n');
+     Serial1.write('\n');
    return c;
 }
 
@@ -110,7 +110,7 @@ static int uninc( int c )
 
 static int outc( int c )
 {
-   Serial.print(String((char) c));
+   Serial1.print(String((char) c));
    return c;
 }
 
@@ -380,14 +380,14 @@ int input_line( int buflen, char *buffer, int timeout, int *read_size )
         {
           buffer[(*read_size)] = '\0';
           (*read_size)--;
-          Serial.print((char) c); // OK to backspace, characters still on the left side
+          Serial1.print((char) c); // OK to backspace, characters still on the left side
         }
       }
       else if ( *read_size < buflen )
          buffer[( *read_size )++] = c;
    }
    text_col = 0;
-   //Serial.print("");
+   //Serial1.print("");
    //delay(1000);
    yield();
    return c;

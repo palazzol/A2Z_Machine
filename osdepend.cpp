@@ -557,7 +557,7 @@ void fatal( const char *s )
    //reset_screen(  );
    char strbuff[512];
    sprintf(strbuff, "\n**FATAL ERROR: %s", s);
-   Serial.println(strbuff);
+   Serial1.println(strbuff);
    while(1)
    {
     Blink(LEDPIN,100,20);

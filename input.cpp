@@ -136,9 +136,9 @@ void z_sread_aread( int argc, zword_t * argv )
    char *cbuf, *buffer;
 
    //if(argc >0)
-   // Serial.print("z_sread_aread: character buffer: "); Serial.println(datap[argv[0]]);
+   // Serial1.print("z_sread_aread: character buffer: "); Serial1.println(datap[argv[0]]);
    //if(argc > 1)
-   // Serial.print("z_sread_aread: token buffer: "); Serial.println(argv[1]);
+   // Serial1.print("z_sread_aread: token buffer: "); Serial1.println(argv[1]);
    /* Supply default parameters */
 
    if ( argc < 4 )
